@@ -1,3 +1,28 @@
+local function AddInfoGuideCard(Title, Desc, Icon, TargetTab, Side, LayoutOrder)
+    return Tabs.Tab:addcard({
+        Title = Title,
+        Desc = Desc,
+        Icon = Icon,
+        TargetTab = TargetTab,
+        Side = Side,
+        Height = 78,
+        BarHeight = 78,
+        DisableHoverGrow = true,
+        LayoutOrder = LayoutOrder,
+        BottomBarTransparency = 0.18,
+        StrokeColor = "AccentColor",
+        StrokeTransparency = 0.45,
+    })
+end
+
+AddInfoGuideCard("Script", "Executor, Dex, Infinite Yield and utility script loaders.", SolarIcon.Script, Tabs.Tab1, 1, -90)
+AddInfoGuideCard("Anti", "Protection toggles for slap effects, ragdoll, void and hazards.", SolarIcon.Anti, Tabs.Tab2, 2, -89)
+AddInfoGuideCard("Badges", "Badge auto farm, teleport/show tools and mastery helpers.", SolarIcon.Badges, Tabs.Tab3, 1, -88)
+AddInfoGuideCard("Local", "Speed, jump, movement and local character controls.", SolarIcon.Local, Tabs.Tab4, 2, -87)
+AddInfoGuideCard("Misc", "Autofarm, ESP, item tools and server utilities.", SolarIcon.Misc, Tabs.Tab5, 1, -86)
+AddInfoGuideCard("Gloves Optional", "Optional glove-specific automation and special actions.", SolarIcon.GlovesOptional, Tabs.Tab6, 2, -85)
+AddInfoGuideCard("UI Settings", "Theme, save manager, keybind menu and interface settings.", SolarIcon.Settings, Tabs["UI Settings"], 1, -84)
+
 local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Server")
 
 CanYouFps = InfoServer1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]", true)
