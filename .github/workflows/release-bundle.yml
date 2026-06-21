@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: Release tag to create or update
+        description: Release tag to create or update. Example: 2.0.1 (pre fix)
         required: true
         default: latest
+      release_password:
+        description: Access password stored in RELEASE_WORKFLOW_PASSWORD
+        required: true
 
 permissions:
   contents: write
@@ -18,6 +21,43 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Authorize release
+        env:
+          INPUT_PASSWORD: ${{ inputs.release_password }}
+          SECRET_PASSWORD: ${{ secrets.RELEASE_WORKFLOW_PASSWORD }}
+        run: |
+          echo "::add-mask::$INPUT_PASSWORD"
+          if [ -z "$SECRET_PASSWORD" ]; then
+            echo "::error::Missing repository secret RELEASE_WORKFLOW_PASSWORD."
+            exit 1
+          fi
+          if [ "$INPUT_PASSWORD" != "$SECRET_PASSWORD" ]; then
+            echo "::error::Invalid release password."
+            exit 1
+          fi
+
+      - name: Normalize tag
+        id: tag
+        env:
+          RAW_TAG_NAME: ${{ inputs.tag_name }}
+        run: |
+          tag_name="$(printf '%s' "$RAW_TAG_NAME" \
+            | tr '[:upper:]' '[:lower:]' \
+            | sed -E 's/^[[:space:]]+|[[:space:]]+$//g; s/[^a-z0-9._-]+/-/g; s/-+/-/g; s/^-+|-+$//g')"
+
+          if [ -z "$tag_name" ]; then
+            echo "::error::Tag name is empty after normalization."
+            exit 1
+          fi
+
+          if ! git check-ref-format "refs/tags/$tag_name"; then
+            echo "::error::Invalid tag after normalization: $tag_name"
+            exit 1
+          fi
+
+          echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
+          echo "Using release tag: $tag_name"
 
       - name: Install darklua
         env:
@@ -35,12 +75,26 @@ jobs:
       - name: Verify release artifact
         run: test -s main.luau
 
+      - name: Overwrite release tag
+        env:
+          TAG_NAME: ${{ steps.tag.outputs.tag_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --tags --force
+          git tag -f "$TAG_NAME" "$GITHUB_SHA"
+          git push --force origin "refs/tags/$TAG_NAME"
+
       - name: Create or update release
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ inputs.tag_name }}
+          TAG_NAME: ${{ steps.tag.outputs.tag_name }}
         run: |
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release edit "$TAG_NAME" \
+              --title "$TAG_NAME" \
+              --notes "Bundled main.luau built from Tabs, Utility, and Script chunks, then processed with darklua." \
+              --target "$GITHUB_SHA"
             gh release upload "$TAG_NAME" main.luau --clobber
           else
             gh release create "$TAG_NAME" main.luau \
