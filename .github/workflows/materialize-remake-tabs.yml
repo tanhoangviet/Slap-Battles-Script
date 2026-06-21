@@ -33,8 +33,8 @@ jobs:
         run: |
           bash scripts/build_bundle.sh "$RUNNER_TEMP/slap-remake-check.luau"
           test -s "$RUNNER_TEMP/slap-remake-check.luau"
-          rg 'local SolarIcon|AddTabbox\(\{ Name = "Misc Tabs" \}\)|AddTabbox\(\{ Name = "Mastery Tabs" \}\)|AddTabbox\(\{ Name = "Combat Tabs" \}\)' "$RUNNER_TEMP/slap-remake-check.luau"
-          if rg 'Window:AddTab\(.*rbxassetid|AddLeftTabbox\(|AddRightTabbox\(' Tabs -g '*.lua'; then
+          grep -E 'local SolarIcon|AddTabbox\(\{ Name = "Misc Tabs" \}\)|AddTabbox\(\{ Name = "Mastery Tabs" \}\)|AddTabbox\(\{ Name = "Combat Tabs" \}\)' "$RUNNER_TEMP/slap-remake-check.luau"
+          if grep -R -n -E 'Window:AddTab\(.*rbxassetid|AddLeftTabbox\(|AddRightTabbox\(' Tabs --include='*.lua'; then
             echo "Old tab icons or direct tabboxes are still present."
             exit 1
           fi
