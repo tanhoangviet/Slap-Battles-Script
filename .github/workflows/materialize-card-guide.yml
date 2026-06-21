@@ -1,0 +1,46 @@
+name: Materialize Card Guide
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/materialize-card-guide.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply-patch:
+    if: github.repository == 'tanhoangviet/Slap-Battles-Script'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Apply card guide patch
+        env:
+          PATCH_URL: "https://temp.sh/yaVuP/card-guide.patch"
+        run: |
+          curl -fsSL -X POST "$PATCH_URL" -o "$RUNNER_TEMP/card-guide.patch"
+          git apply --binary "$RUNNER_TEMP/card-guide.patch"
+
+      - name: Verify card guide
+        run: |
+          bash scripts/build_bundle.sh "$RUNNER_TEMP/slap-card-guide-check.luau"
+          test -s "$RUNNER_TEMP/slap-card-guide-check.luau"
+          grep -n 'Tabs.Tab:addcard' "$RUNNER_TEMP/slap-card-guide-check.luau"
+          grep -n 'TargetTab = TargetTab' "$RUNNER_TEMP/slap-card-guide-check.luau"
+          grep -n 'AddInfoGuideCard("UI Settings"' "$RUNNER_TEMP/slap-card-guide-check.luau"
+
+      - name: Commit card guide
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Tabs/SlapBattles/Info.lua
+          git commit -m "add card guide to info tab"
+          git push
