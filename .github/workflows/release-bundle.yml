@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: Release tag to create or update. Example: 2.0.1 (pre fix)
+        description: "Release tag to create or update. Example: 2.0.1 (pre fix)"
         required: true
         default: latest
       release_password:
-        description: Access password stored in RELEASE_WORKFLOW_PASSWORD
+        description: "Access password stored in RELEASE_WORKFLOW_PASSWORD"
         required: true
 
 permissions:
