@@ -1,0 +1,48 @@
+name: Materialize Remake Tabs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/materialize-remake-tabs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply-patch:
+    if: github.repository == 'tanhoangviet/Slap-Battles-Script'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Apply remake patch
+        env:
+          PATCH_URL: "https://temp.sh/MbgUy/remake-tabs.patch"
+        run: |
+          curl -fsSL -X POST "$PATCH_URL" -o "$RUNNER_TEMP/remake-tabs.patch"
+          git apply --binary "$RUNNER_TEMP/remake-tabs.patch"
+
+      - name: Verify bundle markers
+        run: |
+          bash scripts/build_bundle.sh "$RUNNER_TEMP/slap-remake-check.luau"
+          test -s "$RUNNER_TEMP/slap-remake-check.luau"
+          rg 'local SolarIcon|AddTabbox\(\{ Name = "Misc Tabs" \}\)|AddTabbox\(\{ Name = "Mastery Tabs" \}\)|AddTabbox\(\{ Name = "Combat Tabs" \}\)' "$RUNNER_TEMP/slap-remake-check.luau"
+          if rg 'Window:AddTab\(.*rbxassetid|AddLeftTabbox\(|AddRightTabbox\(' Tabs -g '*.lua'; then
+            echo "Old tab icons or direct tabboxes are still present."
+            exit 1
+          fi
+
+      - name: Commit remake
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Tabs Utility bundle_order.txt
+          git commit -m "remake tabs with solar icons"
+          git push
