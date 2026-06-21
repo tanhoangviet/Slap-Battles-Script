@@ -19,8 +19,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build main.luau
-        run: bash scripts/build_bundle.sh main.luau
+      - name: Install darklua
+        env:
+          DARKLUA_VERSION: 0.19.0
+        run: |
+          curl -fsSL "https://github.com/seaofvoices/darklua/releases/download/v${DARKLUA_VERSION}/darklua-linux-x86_64.zip" -o "$RUNNER_TEMP/darklua.zip"
+          unzip -q "$RUNNER_TEMP/darklua.zip" -d "$RUNNER_TEMP/darklua"
+          chmod +x "$RUNNER_TEMP/darklua/darklua"
+          echo "$RUNNER_TEMP/darklua" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/darklua/darklua" --version
+
+      - name: Build main.luau with darklua
+        run: bash scripts/build_darklua.sh main.luau
+
+      - name: Verify release artifact
+        run: test -s main.luau
 
       - name: Create or update release
         env:
@@ -32,6 +45,6 @@ jobs:
           else
             gh release create "$TAG_NAME" main.luau \
               --title "$TAG_NAME" \
-              --notes "Bundled main.luau built from Tabs, Utility, and Script chunks." \
+              --notes "Bundled main.luau built from Tabs, Utility, and Script chunks, then processed with darklua." \
               --target "$GITHUB_SHA"
           fi

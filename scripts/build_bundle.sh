@@ -4,6 +4,11 @@ set -euo pipefail
 output="${1:-Slap_Battles.lua}"
 manifest="${BUNDLE_MANIFEST:-bundle_order.txt}"
 tmp="${output}.tmp"
+output_dir="$(dirname "$output")"
+
+if [ "$output_dir" != "." ]; then
+  mkdir -p "$output_dir"
+fi
 
 : > "$tmp"
 
