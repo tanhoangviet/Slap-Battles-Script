@@ -1,0 +1,16 @@
+local SolarIcon = {
+	Info = "info",
+	Script = "code",
+	Anti = "shield-check",
+	Badges = "badge-check",
+	Local = "user-round",
+	Misc = "boxes",
+	GlovesOptional = "hand",
+	Settings = "settings",
+	Main = "layout-dashboard",
+	Combat = "swords",
+	Boss = "skull",
+	Esp = "eye",
+	Help = "circle-question-mark",
+	Mastery = "trophy",
+}

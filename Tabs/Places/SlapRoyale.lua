@@ -43,13 +43,14 @@ end
 Window:ChangeTitle("Slap Royale 🏆")
 
 Tabs = {
-	Tab = Window:AddTab("Combat", "rbxassetid://7733674079"),
-    Tab1 = Window:AddTab("Anti / Misc", "rbxassetid://7734056608"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+	Tab = Window:AddTab("Combat", SolarIcon.Combat),
+    Tab1 = Window:AddTab("Anti / Misc", SolarIcon.Anti),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
-TabBoxCombat1 = Tabs.Tab:AddLeftTabbox()
-local Combat1Group = TabBoxCombat1:AddTab("Combat")
+local CombatTabGroup = Tabs.Tab:AddLeftGroupbox("Combat Tools", SolarIcon.Combat)
+TabBoxCombat1 = CombatTabGroup:AddTabbox({ Name = "Combat Tabs" })
+local Combat1Group = TabBoxCombat1:AddTab("Combat", SolarIcon.Combat)
 
 Combat1Group:AddToggle("Slap Aura", {
     Text = "Slap Aura",
@@ -323,7 +324,7 @@ Combat2Group:AddButton("Use Item Power", function()
 	end
 end)
 
-local Esp1Group = TabBoxCombat1:AddTab("ESP") 
+local Esp1Group = TabBoxCombat1:AddTab("ESP", SolarIcon.Esp)
 
 Esp1Group:AddToggle("Esp Glove", {
     Text = "Esp Glove",

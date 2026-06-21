@@ -194,8 +194,9 @@ Fly(Value)
    SyncToggleState = true
 })
 
-TabBoxMisc1 = Tabs.Tab5:AddLeftTabbox()
-local Misc1Basic = TabBoxMisc1:AddTab("Misc") 
+local MiscTabGroup = Tabs.Tab5:AddLeftGroupbox("Misc Tools", SolarIcon.Misc)
+TabBoxMisc1 = MiscTabGroup:AddTabbox({ Name = "Misc Tabs" })
+local Misc1Basic = TabBoxMisc1:AddTab("Misc", SolarIcon.Misc)
 
  Misc1Basic:AddToggle("Autofarm Slapples", {
     Text = "Autofarm Slapples",
@@ -2773,7 +2774,7 @@ end
     end
 })
 
-local Misc2Esp = TabBoxMisc1:AddTab("Esp") 
+local Misc2Esp = TabBoxMisc1:AddTab("Esp", SolarIcon.Esp)
 
 Misc2Esp:AddToggle("Esp Glove", {
     Text = "Esp Glove",

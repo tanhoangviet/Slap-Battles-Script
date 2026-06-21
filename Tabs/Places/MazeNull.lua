@@ -2,8 +2,8 @@ elseif game.PlaceId == 14422118326 then
 Window:ChangeTitle("Maze Null ☠️")
 
 Tabs = {
-    Tab = Window:AddTab("Misc", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+    Tab = Window:AddTab("Misc", SolarIcon.Misc),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local Misc1Group = Tabs.Tab:AddLeftGroupbox("Misc")

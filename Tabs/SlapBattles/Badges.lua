@@ -1994,8 +1994,9 @@ end
     end
 })
 
-TabBoxMastery = Tabs.Tab3:AddRightTabbox()
-local Badge3Group = TabBoxMastery:AddTab("Mastery")
+local MasteryTabGroup = Tabs.Tab3:AddRightGroupbox("Mastery", SolarIcon.Mastery)
+TabBoxMastery = MasteryTabGroup:AddTabbox({ Name = "Mastery Tabs" })
+local Badge3Group = TabBoxMastery:AddTab("Mastery", SolarIcon.Mastery)
 
 Badge3Group:AddDropdown("Farm Mastery", {
     Text = "Farm Mastery",
@@ -4439,7 +4440,7 @@ end
     end
 })
 
-local Badge4Group = TabBoxMastery:AddTab("Mastery Help")
+local Badge4Group = TabBoxMastery:AddTab("Mastery Help", SolarIcon.Help)
 
 spawn(function()
 	while true do

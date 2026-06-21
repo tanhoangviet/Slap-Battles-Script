@@ -2,8 +2,8 @@ elseif game.PlaceId == 86045914443715 then
 Window:ChangeTitle("Car Key 🚗")
 
 Tabs = {
-	Tab = Window:AddTab("Main", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+	Tab = Window:AddTab("Main", SolarIcon.Main),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local MainGroup = Tabs.Tab:AddLeftGroupbox("Main")

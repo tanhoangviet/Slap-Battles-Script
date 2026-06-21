@@ -11,9 +11,9 @@ VoidPart.CanCollide = false
 end
 
 Tabs = {
-	Tab = Window:AddTab("Script", "rbxassetid://8997387937"),
-    Tab1 = Window:AddTab("Misc", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+	Tab = Window:AddTab("Script", SolarIcon.Script),
+    Tab1 = Window:AddTab("Misc", SolarIcon.Misc),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local Script1Group = Tabs.Tab:AddRightGroupbox("Script")

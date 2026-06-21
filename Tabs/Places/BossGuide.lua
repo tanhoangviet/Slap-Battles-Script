@@ -19,10 +19,10 @@ Safe.CanCollide = true
 end
 
 Tabs = {
-	Tab = Window:AddTab("Misc", "rbxassetid://4370318685"),
-    Tab1 = Window:AddTab("Anti", "rbxassetid://7734056608"),
-    Tab2 = Window:AddTab("Local", "rbxassetid://4335489011"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+	Tab = Window:AddTab("Misc", SolarIcon.Misc),
+    Tab1 = Window:AddTab("Anti", SolarIcon.Anti),
+    Tab2 = Window:AddTab("Local", SolarIcon.Local),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local Misc1Group = Tabs.Tab:AddLeftGroupbox("Prepare")

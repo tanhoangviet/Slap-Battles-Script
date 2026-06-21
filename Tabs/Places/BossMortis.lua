@@ -28,9 +28,9 @@ end
 
 Window:ChangeTitle("Boss Mortis ⚔️")
 Tabs = {
-	Tab = Window:AddTab("Main", "rbxassetid://4370318685"),
-	Tab1 = Window:AddTab("Boss", "rbxassetid://10734975486"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+	Tab = Window:AddTab("Main", SolarIcon.Main),
+	Tab1 = Window:AddTab("Boss", SolarIcon.Boss),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local Misc1Group = Tabs.Tab:AddLeftGroupbox("Round 1")

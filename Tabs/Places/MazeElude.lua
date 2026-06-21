@@ -1,8 +1,8 @@
 elseif game.PlaceId == 11828384869 then
 Window:ChangeTitle("Maze Elude 👁️")
 Tabs = {
-    Tab = Window:AddTab("Misc", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+    Tab = Window:AddTab("Misc", SolarIcon.Misc),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local Badge1 = Tabs.Tab:AddLeftGroupbox("Misc")

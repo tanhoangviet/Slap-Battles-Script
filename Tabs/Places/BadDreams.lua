@@ -1,8 +1,8 @@
 elseif game.PlaceId == 118650724506449 then
 Window:ChangeTitle("Bad Dreams 💤")
 Tabs = {
-	Tab = Window:AddTab("Main", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+	Tab = Window:AddTab("Main", SolarIcon.Main),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local Misc2Group = Tabs.Tab:AddLeftGroupbox("Badge")

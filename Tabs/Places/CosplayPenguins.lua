@@ -1,8 +1,8 @@
 elseif game.PlaceId == 113228834069218 or game.PlaceId == 95356852680586 then
 Window:ChangeTitle("Cosplay Penguins 🐧")
 Tabs = {
-	Tab = Window:AddTab("Main", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+	Tab = Window:AddTab("Main", SolarIcon.Main),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local MainGroup = Tabs.Tab:AddLeftGroupbox("Main")

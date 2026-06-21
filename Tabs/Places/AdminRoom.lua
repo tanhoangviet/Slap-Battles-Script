@@ -1,8 +1,8 @@
 elseif game.PlaceId == 16034567693 then
 Window:ChangeTitle("ADMIN ROOM 💻")
 Tabs = {
-    Tab = Window:AddTab("Misc", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+    Tab = Window:AddTab("Misc", SolarIcon.Misc),
+	["UI Settings"] = Window:AddTab("UI Settings", SolarIcon.Settings)
 }
 
 local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Info")
