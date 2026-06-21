@@ -26,7 +26,7 @@ jobs:
       - name: Extract bundle files
         run: |
           tar -xJf /tmp/slap-bundle.tar.xz
-          rm -f .github/workflows/materialize-bundle.yml
+          git checkout -- .github/workflows
 
       - name: Verify bundle build
         run: |
@@ -37,8 +37,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/workflows/release-bundle.yml .gitignore README.md Script Tabs Utility bundle_order.txt scripts/build_bundle.sh
-          git rm --ignore-unmatch .github/workflows/materialize-bundle.yml
+          git add .gitignore README.md Script Tabs Utility bundle_order.txt scripts/build_bundle.sh
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
