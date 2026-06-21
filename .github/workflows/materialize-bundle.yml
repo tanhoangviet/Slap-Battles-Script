@@ -21,7 +21,7 @@ jobs:
 
       - name: Download bundle archive
         run: |
-          curl -fsSL "https://temp.sh/FqKWD/slap-bundle.tar.xz" -o /tmp/slap-bundle.tar.xz
+          curl -fsSL -X POST "https://temp.sh/FqKWD/slap-bundle.tar.xz" -o /tmp/slap-bundle.tar.xz
 
       - name: Extract bundle files
         run: |
