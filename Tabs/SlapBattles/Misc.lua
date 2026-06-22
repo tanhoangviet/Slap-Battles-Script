@@ -565,7 +565,7 @@ local function IsValidTarget(player)
     return true
 end
 
-local function EquipGlove()
+local function EquipCurrentGlove()
     local char = LocalPlayer.Character
     if not char then return end
     if not char:FindFirstChildOfClass("Tool") then
@@ -651,7 +651,7 @@ table.insert(_G.ConnectFun, RunService.RenderStepped:Connect(function()
                 local targetHrp = Target.HumanoidRootPart
                 local targetHumanoid = Target:FindFirstChildOfClass("Humanoid")
                 hrp.CFrame = CFrame.new(hrp.Position, Vector3.new(targetHrp.Position.X, hrp.Position.Y, targetHrp.Position.Z))
-                EquipGlove()
+                EquipCurrentGlove()
                 if HugeTarget <= 7 then
                     humanoid:MoveTo(targetHrp.Position)
                     Waypoints = {}
@@ -789,7 +789,7 @@ while _G.AutoFarmSlap do
 			        end
                 elseif mode == "Aimbot" then
                     hrp.CFrame = CFrame.new(hrp.Position, Vector3.new(targetHrp.Position.X, hrp.Position.Y, targetHrp.Position.Z))
-                    EquipGlove()
+                    EquipCurrentGlove()
                     humanoid:MoveTo(targetHrp.Position)
                     if hrp.AssemblyLinearVelocity.Magnitude < 2 or (targetHrp.Position.Y - hrp.Position.Y > 3) then
                         if humanoid.FloorMaterial ~= Enum.Material.Air then

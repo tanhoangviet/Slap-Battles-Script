@@ -170,9 +170,8 @@ Library:OnUnload(function()
 	if CoreGui:FindFirstChild("ClickButton") then
 		CoreGui:FindFirstChild("ClickButton"):Destroy()
 	end
-	if hookmetamethod and getgenv().HookFun then
-		hookmetamethod(game, "__namecall", getgenv().HookFun)
-		getgenv().HookFun = nil
+	if getgenv().HookNamecallInstalled then
+		getgenv().HookDisabled = true
 	end
 	if game:GetService("CoreGui").RobloxGui.Backpack:FindFirstChild("Hotbar") then
 		game:GetService("CoreGui").RobloxGui.Backpack.Hotbar.Position = _G.Backpack["Old"]["Hotbar"]

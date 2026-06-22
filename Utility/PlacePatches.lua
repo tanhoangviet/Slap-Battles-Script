@@ -344,51 +344,122 @@ function notSlap(part, list)
     return true
 end
 
+local function GetHookGloveName()
+	return tostring(EquipGlove or "Default"):lower()
+end
+
+local function ShouldPatchMethodGlove(remoteName, gloveName)
+	if MethodGlove ~= true then return false end
+	return (remoteName == "GoldenHit" and gloveName:find("golden"))
+		or (
+			remoteName == "GeneralHit"
+			and (
+				gloveName:find("glovel")
+				or gloveName:find("mace")
+				or gloveName:find("charge")
+				or gloveName:find("stalker")
+			)
+		)
+end
+
+local function PatchMethodGloveArgs(self, args)
+	local remoteName = tostring(self)
+	local gloveName = GetHookGloveName()
+	if not ShouldPatchMethodGlove(remoteName, gloveName) then return false end
+
+	if not gloveName:find("stalker") then
+		args[2] = gloveName:find("mace") and 200 or true
+	else
+		args[3] = 48
+	end
+
+	return true
+end
+
+local function ShouldBlockFireServer(self, args)
+	local remoteName = tostring(self)
+	return (remoteName == "GeneralAbility" and args[1] == "antispam" and getgenv().AntiSpamBypass)
+		or (remoteName == "Piano" and getgenv().AntiPiano)
+end
+
+local function TrackReplicaRoll(self, args)
+	if tostring(self) == "Duplicate" and args[1] == true then
+		ReplicaCount += 1
+	end
+end
+
+local function PatchPsychokinesisArgs(self, args)
+	if tostring(self) ~= "Psychokinesis" or MethodGlove ~= true then return false end
+	if typeof(args[1]) ~= "table" or typeof(args[1]["throwbackAlpha"]) ~= "number" then return false end
+
+	args[1]["throwbackAlpha"] = math.huge
+	return true
+end
+
+local function ShouldBlockClientSignal(self, args)
+	local remoteName = tostring(self)
+	if remoteName == "Confuse" and getgenv().AntiConfuse then return true end
+	return remoteName == "VFX" and args[1] == "NightmareEffect" and getgenv().AntiNightmare
+end
+
+local function InstallNamecallHook()
+	if getgenv().HookNamecallInstalled then
+		getgenv().HookDisabled = false
+		return
+	end
+
+	local OriginalNamecall
+	local HookClosure = function(self, ...)
+		if not OriginalNamecall then return end
+		if getgenv().HookDisabled then
+			return OriginalNamecall(self, ...)
+		end
+
+		local args = { ... }
+		local methodcall = getnamecallmethod()
+
+		if methodcall == "FireServer" then
+			if PatchMethodGloveArgs(self, args) then
+				return OriginalNamecall(self, unpack(args))
+			end
+			if ShouldBlockFireServer(self, args) then
+				return
+			end
+			TrackReplicaRoll(self, args)
+		elseif methodcall == "InvokeServer" then
+			if PatchPsychokinesisArgs(self, args) then
+				return OriginalNamecall(self, unpack(args))
+			end
+		elseif methodcall == "FireClient" or methodcall == "FireAllClients" then
+			if ShouldBlockClientSignal(self, args) then
+				return
+			end
+		end
+
+		return OriginalNamecall(self, ...)
+	end
+
+	if newcclosure then
+		HookClosure = newcclosure(HookClosure)
+	end
+
+	OriginalNamecall = hookmetamethod(game, "__namecall", HookClosure)
+	getgenv().HookFun = OriginalNamecall
+	getgenv().HookNamecallInstalled = true
+	getgenv().HookDisabled = false
+end
+
 if hookmetamethod and getnamecallmethod then
 	if not loadingGetOut then
 		loadingGetOut = true
 		MethodGlove, EquipGlove, ReplicaCount = false, "Default", 0
-		getgenv().HookFun = hookmetamethod(game, "__namecall", function(method, ...) 
-			local args = {...}
-			local methodcall = getnamecallmethod()
-		    if methodcall == "FireServer" then
-			    if ((tostring(method) == "GoldenHit" and EquipGlove:lower():find("golden")) or (tostring(method) == "GeneralHit" and (EquipGlove:lower():find("glovel") or EquipGlove:lower():find("mace") or EquipGlove:lower():find("charge") or EquipGlove:lower():find("stalker")))) and MethodGlove == true then
-					if not EquipGlove:lower():find("stalker") then
-						args[2] = (EquipGlove:lower():find("mace") and 200 or true)
-					else
-						args[3] = 48
-					end
-					return getgenv().HookFun(method, unpack(args))
-				end
-				if tostring(method) == "GeneralAbility" and args[1] == "antispam" and getgenv().AntiSpamBypass then
-					return
-				end
-				if tostring(method) == "Piano" and getgenv().AntiPiano then
-					return
-				end
-				if tostring(method) == "Duplicate" and args[1] == true then
-					ReplicaCount += 1
-				end
-			elseif methodcall == "InvokeServer" then
-				if tostring(method) == "Psychokinesis" and MethodGlove == true then
-					if typeof(args[1]) == "table" and typeof(args[1]["throwbackAlpha"]) == "number" then
-						args[1]["throwbackAlpha"] = math.huge
-						return getgenv().HookFun(method, unpack(args))
-					end
-				end
-			elseif methodcall == "FireClient" or methodcall == "FireAllClients" then
-				if tostring(method) == "Confuse" and getgenv().AntiConfuse then
-					return
-				end
-				if tostring(method) == "VFX" then
-					if args[1] == "NightmareEffect" and getgenv().AntiNightmare then
-						return 
-					end
-				end
-		    end
-			return getgenv().HookFun(method, ...)
-		end)
 	end
+
+	if MethodGlove == nil then MethodGlove = false end
+	if EquipGlove == nil then EquipGlove = "Default" end
+	if ReplicaCount == nil then ReplicaCount = 0 end
+
+	InstallNamecallHook()
 end
 
 local function combinations(list, n)
