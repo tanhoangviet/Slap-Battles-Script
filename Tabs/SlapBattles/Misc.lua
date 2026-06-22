@@ -194,9 +194,8 @@ Fly(Value)
    SyncToggleState = true
 })
 
-local MiscTabGroup = Tabs.Tab5:AddLeftGroupbox("Misc Tools", SolarIcon.Misc)
-TabBoxMisc1 = MiscTabGroup:AddTabbox({ Name = "Misc Tabs" })
-local Misc1Basic = TabBoxMisc1:AddTab("Misc", SolarIcon.Misc)
+TabBoxMisc1 = Tabs.Tab5:AddLeftTabbox()
+local Misc1Basic = TabBoxMisc1:AddTab("Misc") 
 
  Misc1Basic:AddToggle("Autofarm Slapples", {
     Text = "Autofarm Slapples",
@@ -565,7 +564,7 @@ local function IsValidTarget(player)
     return true
 end
 
-local function EquipCurrentGlove()
+local function EquipGlove()
     local char = LocalPlayer.Character
     if not char then return end
     if not char:FindFirstChildOfClass("Tool") then
@@ -651,7 +650,7 @@ table.insert(_G.ConnectFun, RunService.RenderStepped:Connect(function()
                 local targetHrp = Target.HumanoidRootPart
                 local targetHumanoid = Target:FindFirstChildOfClass("Humanoid")
                 hrp.CFrame = CFrame.new(hrp.Position, Vector3.new(targetHrp.Position.X, hrp.Position.Y, targetHrp.Position.Z))
-                EquipCurrentGlove()
+                EquipGlove()
                 if HugeTarget <= 7 then
                     humanoid:MoveTo(targetHrp.Position)
                     Waypoints = {}
@@ -789,7 +788,7 @@ while _G.AutoFarmSlap do
 			        end
                 elseif mode == "Aimbot" then
                     hrp.CFrame = CFrame.new(hrp.Position, Vector3.new(targetHrp.Position.X, hrp.Position.Y, targetHrp.Position.Z))
-                    EquipCurrentGlove()
+                    EquipGlove()
                     humanoid:MoveTo(targetHrp.Position)
                     if hrp.AssemblyLinearVelocity.Magnitude < 2 or (targetHrp.Position.Y - hrp.Position.Y > 3) then
                         if humanoid.FloorMaterial ~= Enum.Material.Air then
@@ -1285,7 +1284,7 @@ game:GetService("ReplicatedStorage").BONK:FireServer()
 task.wait()
 end
 while _G.OnAbility and CheckGlove() == "Frostbite" do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(2)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(3, 3)
 task.wait()
 end
 while _G.OnAbility and CheckGlove() == "Golem" do
@@ -1516,13 +1515,10 @@ end
 if hookmetamethod and getnamecallmethod then
 Misc1Basic:AddToggle("Method Glove", {
     Text = "Method Glove",
-    Tooltip = "Method: Glovel, Charge, Golden, Psython, Stalker",
-    Default = false,
-    Callback = function(Value)
+    Tooltip = "Method: Glovel, Charge, Golden, Psython, Stalker, Frostbite",
+    Default = false, 
+    Callback = function(Value) 
 MethodGlove = Value
-if getgenv().RefreshSlapNamecallHook then
-	getgenv().RefreshSlapNamecallHook()
-end
 while MethodGlove do
 if EquipGlove ~= CheckGlove() then
 	EquipGlove = CheckGlove()
@@ -1727,7 +1723,7 @@ table.insert(_G.ConnectFun, game:GetService("RunService").Heartbeat:Connect(func
 							end
 						end
 						if _G.AimbotGlove == "G-X" and CheckGlove():lower():find("g-x") then
-							if idAnim:find("86347899198448") then
+							if idAnim:find("102526718788106") then
 								AimbotEnable = true
 							end
 						end
@@ -2777,7 +2773,7 @@ end
     end
 })
 
-local Misc2Esp = TabBoxMisc1:AddTab("Esp", SolarIcon.Esp)
+local Misc2Esp = TabBoxMisc1:AddTab("Esp") 
 
 Misc2Esp:AddToggle("Esp Glove", {
     Text = "Esp Glove",
