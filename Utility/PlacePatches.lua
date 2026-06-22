@@ -117,10 +117,9 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	        Name = "Main",
 	        Active = true,
 	        BorderSizePixel = 0,
-	        BackgroundColor3 = Color3.fromRGB(112, 112, 112),
-	        ClipsDescendants = true,
 			Visible = false,
-	        Size = UDim2.new(0, 238, 0, 134),
+	        BackgroundColor3 = Color3.fromRGB(113, 113, 113),
+	        Size = UDim2.new(0.27766, 0, 0.36659, 0),
 	        Position = UDim2.new(0.65, 0, 0, 0),
 	        BackgroundTransparency = 0.3
 	    }, {
@@ -128,17 +127,59 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	        Create("UIStroke", { Transparency = 0.3, Thickness = 1.5 }),
 	        Create("UIDragDetector", {}),
 	        Create("UIAspectRatioConstraint", { AspectRatio = 1.77612 }),
-	        
+	        Create("Frame", {
+	            Name = "InfoMastery",
+	            BorderSizePixel = 0,
+	            BackgroundColor3 = Color3.fromRGB(166, 166, 166),
+	            -- Thay đổi cấu trúc Size/Position để dễ làm Tween bóp méo (Scale)
+	            Size = UDim2.new(0, 0, 1, 0), -- Mặc định Size X = 0 để giấu đi
+	            Position = UDim2.new(0, 0, 0, 0), 
+	            Visible = false,
+	            BackgroundTransparency = 0.2
+	        }, {
+	            Create("UICorner", { CornerRadius = UDim.new(0, 5) }),
+	            Create("UIStroke", { Transparency = 0.3, Thickness = 1.5 }),
+	            Create("TextButton", {
+	                Name = "Close",
+	                TextWrapped = true,
+	                BorderSizePixel = 0,
+	                TextScaled = true,
+	                BackgroundColor3 = Color3.fromRGB(204, 204, 204),
+	                FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+	                Size = UDim2.new(0.85, 0, 0.13433, 0),
+	                Position = UDim2.new(0, 6, 0, 4),
+					TextColor3 = Color3.fromRGB(0, 0, 0),
+	                Text = "Close"
+	            }, {
+	                Create("UICorner", { CornerRadius = UDim.new(0, 5) }),
+	                Create("UIStroke", { Transparency = 0.3, ApplyStrokeMode = Enum.ApplyStrokeMode.Border })
+	            }),
+	            Create("TextLabel", {
+	                Name = "Info",
+	                TextWrapped = true,
+	                BorderSizePixel = 0,
+	                TextScaled = true,
+	                BackgroundColor3 = Color3.fromRGB(187, 187, 187),
+	                FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+	                BackgroundTransparency = 0.2,
+	                Size = UDim2.new(0.85, 0, 0.76119, 0),
+	                Position = UDim2.new(0, 6, 0, 26),
+					TextColor3 = Color3.fromRGB(0, 0, 0),
+	                Text = "Select a task info"
+	            }, {
+	                Create("UICorner", { CornerRadius = UDim.new(0, 5) }),
+	                Create("UIStroke", { Transparency = 0.3, ApplyStrokeMode = Enum.ApplyStrokeMode.Border })
+	            })
+	        }),
 	        Create("Frame", {
 	            Name = "masteryGlove",
 	            BorderSizePixel = 0,
-	            BackgroundColor3 = Color3.fromRGB(138, 138, 138),
-	            Size = UDim2.new(0, 226, 0, 126),
+	            BackgroundColor3 = Color3.fromRGB(139, 139, 139),
+	            Size = UDim2.new(0.94958, 0, 0.9403, 0),
 	            Position = UDim2.new(0.02521, 0, 0.02985, 0),
 	            BackgroundTransparency = 0.2
 	        }, {
 	            Create("UICorner", { CornerRadius = UDim.new(0, 5) }),
-	            
 	            Create("ScrollingFrame", {
 	                Name = "Progress",
 	                Active = true,
@@ -146,7 +187,7 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	                BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 	                ScrollBarImageTransparency = 1,
 	                AutomaticCanvasSize = Enum.AutomaticSize.Y,
-	                Size = UDim2.new(0, 210, 0, 112),
+	                Size = UDim2.new(0.9292, 0, 0.88889, 0),
 	                Position = UDim2.new(0.0354, 0, 0.04762, 0),
 	                ScrollBarThickness = 0,
 	                BackgroundTransparency = 1
@@ -155,18 +196,26 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	                    HorizontalAlignment = Enum.HorizontalAlignment.Center,
 	                    Padding = UDim.new(0, 2)
 	                }),
-	                
 	                Create("Folder", { Name = "TaskHere" }, {
 	                    Create("Frame", {
 	                        Name = "Task [???]",
 	                        BorderSizePixel = 0,
-	                        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-	                        Size = UDim2.new(0, 210, 0, 36),
 							Visible = false,
+	                        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	                        Size = UDim2.new(1, 0, 0.32143, 0),
 	                        BackgroundTransparency = 0.2
 	                    }, {
 	                        Create("UICorner", { CornerRadius = UDim.new(0, 5) }),
-	                        
+	                        Create("ImageButton", {
+	                            Name = "Info [???]",
+	                            BorderSizePixel = 0,
+	                            BackgroundTransparency = 1,
+	                            BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	                            Image = "rbxassetid://108984542249016",
+	                            Size = UDim2.new(0.09524, 0, 0.77778, 0),
+								ImageColor3 = Color3.fromRGB(0, 0, 0),
+	                            Position = UDim2.new(0, 4, 0, 4)
+	                        }),
 	                        Create("TextLabel", {
 	                            Name = "ProgressTask",
 	                            TextWrapped = true,
@@ -178,8 +227,8 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	                            FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal),
 	                            TextColor3 = Color3.fromRGB(0, 0, 0),
 	                            BackgroundTransparency = 1,
-	                            Size = UDim2.new(0, 170, 0, 28),
-								Position = UDim2.new(0.02857, 0, 0.11111, 0),
+	                            Size = UDim2.new(0.69524, 0, 0.77778, 0),
+	                            Position = UDim2.new(0.02857, 24, 0.11111, 0),
 	                            Text = "Soon"
 	                        }),
 	                        Create("ImageLabel", {
@@ -187,7 +236,7 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	                            BorderSizePixel = 0,
 	                            BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 	                            Image = "rbxassetid://100988669582287",
-	                            Size = UDim2.new(0, 22, 0, 22),
+	                            Size = UDim2.new(0.10476, 0, 0.61111, 0),
 	                            BackgroundTransparency = 1,
 	                            Position = UDim2.new(0.8619, 0, 0.18, 0)
 	                        }, {
@@ -196,9 +245,9 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	                                BorderSizePixel = 0,
 	                                BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 	                                Image = "rbxassetid://88066926099934",
-	                                Size = UDim2.new(0, 28, 0, 26),
+	                                Size = UDim2.new(1.27273, 0, 1.18182, 0),
+	                                Visible = false,
 	                                BackgroundTransparency = 1,
-									Visible = false,
 	                                Position = UDim2.new(0, 0, -0.18182, 0)
 	                            })
 	                        })
@@ -210,16 +259,52 @@ if not game.CoreGui:FindFirstChild("MasteryGui") then
 	})
 end
 
-function ShowMasteryGui(show)
-	local masteryGlove = game.CoreGui:FindFirstChild("MasteryGui")
-	if not masteryGlove then return end
-	local main = masteryGlove:FindFirstChild("Main")
-	if main then
-		main.Visible = show
+local TweenService = game:GetService("TweenService")
+local masteryGloveGui = game.CoreGui:FindFirstChild("MasteryGui")
+local mainPanel = masteryGloveGui and masteryGloveGui:FindFirstChild("Main")
+local infoMastery = mainPanel and mainPanel:FindFirstChild("InfoMastery")
+local infoLabel = infoMastery and infoMastery:FindFirstChild("Info")
+local closeButton = infoMastery and infoMastery:FindFirstChild("Close")
+local tweenInfo = TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+local isTweening = false
+local lastGloveName = ""
+local function ToggleInfoPanel(open, text)
+	if not infoMastery then return end
+	if text and infoLabel then infoLabel.Text = text end
+	if open then
+		infoMastery.Visible = true
+		local openTween = TweenService:Create(infoMastery, tweenInfo, {
+			Size = UDim2.new(0.336, 0, 1, 0),
+			Position = UDim2.new(0, -88, 0, 2)
+		})
+		openTween:Play()
+	else
+		local closeTween = TweenService:Create(infoMastery, tweenInfo, {
+			Size = UDim2.new(0, 0, 1, 0),
+			Position = UDim2.new(0, 0, 0, 2)
+		})
+		closeTween:Play()
+		closeTween.Completed:Connect(function()
+			if infoMastery.Size.X.Offset == 0 and infoMastery.Size.X.Scale == 0 then
+				infoMastery.Visible = false
+			end
+		end)
 	end
 end
 
-local lastGlove = ""
+if closeButton then
+	closeButton.MouseButton1Click:Connect(function()
+		ToggleInfoPanel(false)
+	end)
+end
+
+function ShowMasteryGui(show)
+	if mainPanel then
+		mainPanel.Visible = show
+		if not show then ToggleInfoPanel(false) end
+	end
+end
+
 function UpdateTaskGloveMastery()
 	local taskGlove = {}
 	if not _G.MasteryGlove then return taskGlove end
@@ -244,13 +329,13 @@ function UpdateTaskGloveMastery()
 					taskGloveN += 1
 					local current = tonumber(findMastery(j)) or 0
 					local max = tonumber(b.ProgressMaxQuantity) or 1
-					taskGlove[taskGloveN] = {Text = b.Name, Max = max, Current = current, Percent = math.clamp(math.floor((current / max) * 100), 0, 100)}
+					taskGlove[taskGloveN] = {Text = b.Name, Max = max, Current = current, Info = b.HoverTip, Percent = math.clamp(math.floor((current / max) * 100), 0, 100)}
 				end
 			end
 		end
 	end
 	if #taskGlove == 0 then
-		taskGlove[1] = {Text = "No "..(CheckGlove and CheckGlove() or "Unknown").." glove mastery or soon", IsFallback = true}
+		taskGlove[1] = {Text = "No "..(CheckGlove and CheckGlove() or "Unknown").." glove mastery or soon", IsFallback = true, Info = "You should change to a glove with mastery."}
 	else
 		for _, task in ipairs(taskGlove) do
 			task.Percent = math.min(math.floor((task.Current / task.Max) * 100), 100)
@@ -258,17 +343,21 @@ function UpdateTaskGloveMastery()
 	end
 	return taskGlove
 end
+
+local currentTaskDataCache = {}
 table.insert(_G.ConnectFun, game:GetService("RunService").RenderStepped:Connect(function()
-	local masteryGlove = game.CoreGui:FindFirstChild("MasteryGui")
-	if not masteryGlove then return end
-	local main = masteryGlove:FindFirstChild("Main")
-	if main and not main.Visible then return end
-	local masteryFrame = main and main:FindFirstChild("masteryGlove")
+	if not mainPanel or not mainPanel.Visible then return end
+	local currentGlove = CheckGlove() or "Unknown"
+	if lastGloveName ~= "" and lastGloveName ~= currentGlove then
+		ToggleInfoPanel(false)
+	end
+	lastGloveName = currentGlove 
+	local masteryFrame = mainPanel:FindFirstChild("masteryGlove")
 	local progress = masteryFrame and masteryFrame:FindFirstChild("Progress")
 	local taskFolder = progress and progress:FindFirstChild("TaskHere")
 	if not taskFolder then return end
-	local currentGlove = CheckGlove() or "Unknown"
 	local update = UpdateTaskGloveMastery()
+	currentTaskDataCache = update
 	local template = taskFolder:FindFirstChild("Task [???]") or taskFolder:FindFirstChildOfClass("Frame")
 	for _, v in ipairs(progress:GetChildren()) do
 		if v.Name:match("^Task %[%d+%]$") then
@@ -277,11 +366,23 @@ table.insert(_G.ConnectFun, game:GetService("RunService").RenderStepped:Connect(
 	end
 	for index, taskData in ipairs(update) do
 		local taskName = "Task [" .. index .. "]"
+		local infoName = "Info [" .. index .. "]"
 		local frame = progress:FindFirstChild(taskName)
 		if not frame and template then
 			frame = template:Clone()
 			frame.Name = taskName
+			frame.Visible = true
 			frame.Parent = progress
+			local infoButton = frame:FindFirstChild("Info [???]")
+			if infoButton then
+				infoButton.Name = infoName
+				infoButton.MouseButton1Click:Connect(function()
+					local liveData = currentTaskDataCache[index]
+					if liveData then
+						ToggleInfoPanel(true, "Task "..index..": "..liveData.Info)
+					end
+				end)
+			end
 		end
 		if frame then
 			local textlabel = frame:FindFirstChild("ProgressTask")
@@ -344,138 +445,59 @@ function notSlap(part, list)
     return true
 end
 
-local function GetHookGloveName()
-	return tostring(EquipGlove or "Default"):lower()
-end
-
-local function ShouldPatchMethodGlove(remoteName, gloveName)
-	if MethodGlove ~= true then return false end
-	return (remoteName == "GoldenHit" and gloveName:find("golden"))
-		or (
-			remoteName == "GeneralHit"
-			and (
-				gloveName:find("glovel")
-				or gloveName:find("mace")
-				or gloveName:find("charge")
-				or gloveName:find("stalker")
-			)
-		)
-end
-
-local function PatchMethodGloveArgs(self, args)
-	local remoteName = tostring(self)
-	local gloveName = GetHookGloveName()
-	if not ShouldPatchMethodGlove(remoteName, gloveName) then return false end
-
-	if not gloveName:find("stalker") then
-		args[2] = gloveName:find("mace") and 200 or true
-	else
-		args[3] = 48
-	end
-
-	return true
-end
-
-local function ShouldBlockFireServer(self, args)
-	local remoteName = tostring(self)
-	return (remoteName == "GeneralAbility" and args[1] == "antispam" and getgenv().AntiSpamBypass)
-		or (remoteName == "Piano" and getgenv().AntiPiano)
-end
-
-local function TrackReplicaRoll(self, args)
-	if tostring(self) == "Duplicate" and args[1] == true then
-		ReplicaCount += 1
-	end
-end
-
-local function PatchPsychokinesisArgs(self, args)
-	if tostring(self) ~= "Psychokinesis" or MethodGlove ~= true then return false end
-	if typeof(args[1]) ~= "table" or typeof(args[1]["throwbackAlpha"]) ~= "number" then return false end
-
-	args[1]["throwbackAlpha"] = math.huge
-	return true
-end
-
-local function ShouldBlockClientSignal(self, args)
-	local remoteName = tostring(self)
-	if remoteName == "Confuse" and getgenv().AntiConfuse then return true end
-	return remoteName == "VFX" and args[1] == "NightmareEffect" and getgenv().AntiNightmare
-end
-
-local function InstallNamecallHook()
-	if getgenv().HookNamecallInstalled then
-		getgenv().HookDisabled = false
-		return
-	end
-
-	local OriginalNamecall
-	local HookClosure = function(self, ...)
-		if not OriginalNamecall then return end
-		if getgenv().HookDisabled then
-			return OriginalNamecall(self, ...)
-		end
-
-		local args = { ... }
-		local methodcall = getnamecallmethod()
-
-		if methodcall == "FireServer" then
-			if PatchMethodGloveArgs(self, args) then
-				return OriginalNamecall(self, unpack(args))
-			end
-			if ShouldBlockFireServer(self, args) then
-				return
-			end
-			TrackReplicaRoll(self, args)
-		elseif methodcall == "InvokeServer" then
-			if PatchPsychokinesisArgs(self, args) then
-				return OriginalNamecall(self, unpack(args))
-			end
-		elseif methodcall == "FireClient" or methodcall == "FireAllClients" then
-			if ShouldBlockClientSignal(self, args) then
-				return
-			end
-		end
-
-		return OriginalNamecall(self, ...)
-	end
-
-	if newcclosure then
-		HookClosure = newcclosure(HookClosure)
-	end
-
-	OriginalNamecall = hookmetamethod(game, "__namecall", HookClosure)
-	getgenv().HookFun = OriginalNamecall
-	getgenv().HookNamecallInstalled = true
-	getgenv().HookDisabled = false
-end
-
-local function RefreshNamecallHook()
-	local ShouldEnableHook = MethodGlove == true
-		or getgenv().AntiSpamBypass == true
-		or getgenv().AntiPiano == true
-		or getgenv().AntiConfuse == true
-		or getgenv().AntiNightmare == true
-
-	if ShouldEnableHook then
-		InstallNamecallHook()
-	elseif getgenv().HookNamecallInstalled then
-		getgenv().HookDisabled = true
-	end
-end
-
 if hookmetamethod and getnamecallmethod then
 	if not loadingGetOut then
 		loadingGetOut = true
 		MethodGlove, EquipGlove, ReplicaCount = false, "Default", 0
+		getgenv().HookFun = hookmetamethod(game, "__namecall", function(method, ...) 
+			local args = {...}
+			local methodcall = getnamecallmethod()
+		    if methodcall == "FireServer" then
+			    if ((tostring(method) == "GoldenHit" and EquipGlove:lower():find("golden")) or (tostring(method) == "GeneralHit" and (EquipGlove:lower():find("glovel") or EquipGlove:lower():find("mace") or EquipGlove:lower():find("charge") or EquipGlove:lower():find("stalker")))) and MethodGlove == true then
+					if not EquipGlove:lower():find("stalker") then
+						args[2] = (EquipGlove:lower():find("mace") and 200 or true)
+					else
+						args[3] = 48
+					end
+					return getgenv().HookFun(method, unpack(args))
+				end
+				if tostring(method) == "GeneralAbility" then
+					if args[1] == "antispam" and getgenv().AntiSpamBypass then
+						return
+					end
+					if MethodGlove == true and EquipGlove:lower():find("frostbite") then
+						if type(args[1]):find("number") and type(args[2]):find("number") then
+							args[1] = 3
+							args[2] = 2
+						end
+					end
+				end
+				if tostring(method) == "Piano" and getgenv().AntiPiano then
+					return
+				end
+				if tostring(method) == "Duplicate" and args[1] == true then
+					ReplicaCount += 1
+				end
+			elseif methodcall == "InvokeServer" then
+				if tostring(method) == "Psychokinesis" and MethodGlove == true then
+					if typeof(args[1]) == "table" and typeof(args[1]["throwbackAlpha"]) == "number" then
+						args[1]["throwbackAlpha"] = math.huge
+						return getgenv().HookFun(method, unpack(args))
+					end
+				end
+			elseif methodcall == "FireClient" or methodcall == "FireAllClients" then
+				if tostring(method) == "Confuse" and getgenv().AntiConfuse then
+					return
+				end
+				if tostring(method) == "VFX" then
+					if args[1] == "NightmareEffect" and getgenv().AntiNightmare then
+						return 
+					end
+				end
+		    end
+			return getgenv().HookFun(method, ...)
+		end)
 	end
-
-	if MethodGlove == nil then MethodGlove = false end
-	if EquipGlove == nil then EquipGlove = "Default" end
-	if ReplicaCount == nil then ReplicaCount = 0 end
-
-	getgenv().InstallSlapNamecallHook = InstallNamecallHook
-	getgenv().RefreshSlapNamecallHook = RefreshNamecallHook
-	RefreshNamecallHook()
 end
 
 local function combinations(list, n)
@@ -531,8 +553,7 @@ function findGroup(maxDist, groupSize)
 end
 
 function equipglove(name)
-	local CurrentGlove = CheckGlove()
-	if not CurrentGlove or CurrentGlove:lower() ~= name:lower() then
+	if CheckGlove():lower() ~= name:lower() then
 		EquipGloveRemote(name)
 		local click = workspace.Lobby:FindFirstChild(name)
 		if click and fireclickdetector then
@@ -541,38 +562,25 @@ function equipglove(name)
 	end
 end
 
-local function FireSlapRemote(Remote, ...)
-	if not Remote then return false end
-	local Success = pcall(function(...)
-		Remote:FireServer(...)
-	end, ...)
-	return Success
-end
-
-local function GetSlapArgs(current, obj)
-	if current then
-		local glove = current:lower()
-		if glove == "stalker" then
-			return { obj, false, 45 }
-		elseif glove == "glovel" then
-			return { obj, true }
-		elseif glove == "mace" then
-			return { obj, 100 }
-		end
-	end
-	return { obj }
-end
-
 function slapglove(obj)
 	local current = CheckGlove()
-	if not obj or not current or not gloveHits then return false end
-
-	local args = GetSlapArgs(current, obj)
-	local CurrentRemote = gloveHits[current]
-	if CurrentRemote and FireSlapRemote(CurrentRemote, unpack(args)) then
-		return true
+	local arg
+	if gloveHits[current] then
+		gloveHits[current]:FireServer(obj)
+	else
+		if current then
+			if current:lower() == "stalker" then
+				arg = {obj, false, 45}
+			elseif current:lower() == "glovel" then
+				arg = {obj, true}
+			elseif current:lower() == "mace" then
+				arg = {obj, 100}
+			else
+				arg = {obj}
+			end
+			gloveHits["All"]:FireServer(unpack(arg))
+		end
 	end
-	return FireSlapRemote(gloveHits["All"], unpack(args))
 end
 
 ---SafeSpotSpace---
