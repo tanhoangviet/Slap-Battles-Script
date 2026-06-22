@@ -90,6 +90,25 @@ function CheckExecutorSupport(FeatureName, ToggleName, Silent)
 	return false
 end
 
+local function InstallUnsupportedStub(FeatureName, GlobalName)
+	if ExecutorSupport[FeatureName] == true then
+		return
+	end
+
+	local Environment = (getgenv and getgenv()) or _G
+	if IsCallable(Environment[GlobalName]) then
+		return
+	end
+
+	Environment[GlobalName] = function()
+		CheckExecutorSupport(FeatureName)
+	end
+end
+
+InstallUnsupportedStub("fireclickdetector", "fireclickdetector")
+InstallUnsupportedStub("firetouchinterest", "firetouchinterest")
+InstallUnsupportedStub("fireproximityprompt", "fireproximityprompt")
+
 if Loading then
 	Loading:SetCurrentStep(2)
 	Loading:SetDescription("Executor support: " .. ExecutorSupport.Name .. " (" .. ExecutorSupport.Summary .. ")")
