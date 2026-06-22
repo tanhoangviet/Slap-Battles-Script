@@ -28,7 +28,7 @@ local Toggles = Library.Toggles
 local Loading = Library:CreateLoading({
     Title = "Azusa Article Hub",
     Icon = 83462777349222,
-    TotalSteps = 3
+    TotalSteps = 5
 })
 Loading:SetMessage("Initializing...")
 Loading:SetDescription("Loading game data...")
@@ -40,6 +40,6 @@ if LoadingData and LoadingData.Visible then
 	until not LoadingData.Parent or not LoadingData.Visible or os.clock() > Timeout
 end
 Loading:SetCurrentStep(1)
-Loading:SetDescription("Loading configuration...")
-task.wait(0.5)
+Loading:SetDescription("Game data ready.")
+task.wait(0.25)
 _G.ConnectFun = {}

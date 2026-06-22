@@ -1,4 +1,5 @@
 Utility/Bootstrap.lua
+Utility/ExecutorSupport.lua
 Script/Create.lua
 Script/VectorTween.lua
 Script/CreateFreezeBV.lua
@@ -19,6 +20,7 @@ Script/Notification.lua
 Utility/TopbarWatermark.lua
 Utility/Window.lua
 Utility/TabIcons.lua
+Utility/GloveIcons.lua
 Tabs/SlapBattles/00_CreateTabs.lua
 Tabs/SlapBattles/Info.lua
 Tabs/SlapBattles/Script.lua

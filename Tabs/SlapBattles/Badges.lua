@@ -1732,7 +1732,7 @@ end
 
 local BobChance = Badge2Group:AddLabel("Glove Replica", true)
 
-if not hookmetamethod then
+if not ExecutorSupport or not ExecutorSupport.namecall_hook then
 	local ReplicaCount = 0
 	if game.ReplicatedStorage:FindFirstChild("Duplicate") then
 		table.insert(_G.ConnectFun, game.ReplicatedStorage:FindFirstChild("Duplicate").OnClientEvent:Connect(function(...)
@@ -1996,7 +1996,7 @@ end
 
 local MasteryTabGroup = Tabs.Tab3:AddRightGroupbox("Mastery", SolarIcon.Mastery)
 TabBoxMastery = MasteryTabGroup:AddTabbox({ Name = "Mastery Tabs" })
-local Badge3Group = TabBoxMastery:AddTab("Farm", SolarIcon.Mastery)
+local Badge3Group = TabBoxMastery:AddTab("", GloveIcon.Farm)
 
 Badge3Group:AddDropdown("Farm Mastery", {
     Text = "Farm Mastery",
@@ -2134,7 +2134,7 @@ function SpawnFarmMastery()
 	player.Character.HumanoidRootPart.CFrame = workspace.SafeBox.CFrame * CFrame.new(0,5,0)
 end
 
-Badge3Group = TabBoxMastery:AddTab("Spring-Defense", SolarIcon.Local)
+Badge3Group = TabBoxMastery:AddTab("", GloveIcon.SpringDefense)
 
 Badge3Group:AddDropdown("Spring Mastery", {
     Text = "Spring Mastery",
@@ -2563,7 +2563,7 @@ end
     end
 })
 
-Badge3Group = TabBoxMastery:AddTab("Thanos-Tycoon", SolarIcon.Combat)
+Badge3Group = TabBoxMastery:AddTab("", GloveIcon.ThanosTycoon)
 
 Badge3Group:AddDropdown("Thanos Mastery", {
     Text = "Thanos Mastery",
@@ -3227,7 +3227,7 @@ end
     end
 })
 
-Badge3Group = TabBoxMastery:AddTab("Phase-Wormhole", SolarIcon.Misc)
+Badge3Group = TabBoxMastery:AddTab("", GloveIcon.PhaseWormhole)
 
 Badge3Group:AddDropdown("Phase Mastery", {
     Text = "Phase Mastery",
@@ -3887,7 +3887,7 @@ end
     end
 })
 
-Badge3Group = TabBoxMastery:AddTab("Run-Brick", SolarIcon.Mastery)
+Badge3Group = TabBoxMastery:AddTab("", GloveIcon.RunBrick)
 
 Badge3Group:AddDropdown("Run Mastery", {
     Text = "Run Mastery",
@@ -4448,7 +4448,7 @@ end
     end
 })
 
-local Badge4Group = TabBoxMastery:AddTab("Help Setup", SolarIcon.Help)
+local Badge4Group = TabBoxMastery:AddTab("", GloveIcon.HelpSetup)
 
 spawn(function()
 	while true do
@@ -4526,7 +4526,7 @@ end
     end
 })
 
-Badge4Group = TabBoxMastery:AddTab("Help A-B", SolarIcon.Help)
+Badge4Group = TabBoxMastery:AddTab("", GloveIcon.HelpAB)
 
 Badge4Group:AddDropdown("Acrobat Mastery", {
     Text = "Acrobat Mastery",
@@ -4838,7 +4838,7 @@ end
     end
 })
 
-Badge4Group = TabBoxMastery:AddTab("Help V-S", SolarIcon.Combat)
+Badge4Group = TabBoxMastery:AddTab("", GloveIcon.HelpVS)
 
 Badge4Group:AddDropdown("Voodoo Mastery", {
     Text = "Voodoo Mastery",
@@ -5879,7 +5879,7 @@ end
     end
 })
 
-Badge4Group = TabBoxMastery:AddTab("Help T-M", SolarIcon.Misc)
+Badge4Group = TabBoxMastery:AddTab("", GloveIcon.HelpTM)
 
 Badge4Group:AddDropdown("Tycoon Mastery", {
     Text = "Tycoon Mastery",
@@ -6742,7 +6742,7 @@ end
     end
 })
 
-Badge4Group = TabBoxMastery:AddTab("Help Quick", SolarIcon.Mastery)
+Badge4Group = TabBoxMastery:AddTab("", GloveIcon.HelpQuick)
 
 Badge4Group:AddDivider()
 

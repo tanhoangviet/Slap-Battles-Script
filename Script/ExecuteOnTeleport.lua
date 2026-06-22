@@ -1,6 +1,7 @@
 ------------------------------------------------------------------------
 table.insert(_G.ConnectFun, game.Players.LocalPlayer.OnTeleport:Connect(function()
 if not Toggles["ExecuteOnTeleport"].Value or getgenv().LoadingExe then return end
+if CheckExecutorSupport and not CheckExecutorSupport("queue_on_teleport", "ExecuteOnTeleport") then return end
 getgenv().LoadingExe = true
 local ExecuteNowTP = queueonteleport or queue_on_teleport
 if ExecuteNowTP then

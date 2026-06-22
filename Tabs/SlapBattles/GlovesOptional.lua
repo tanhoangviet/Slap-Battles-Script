@@ -1,9 +1,9 @@
 local GloveTabGroup = Tabs.Tab6:AddLeftGroupbox("Glove Options", SolarIcon.GlovesOptional)
 local GloveTabBox = GloveTabGroup:AddTabbox({ Name = "Glove Tabs" })
-local GloveSpamGroup = GloveTabBox:AddTab("Spam", SolarIcon.GlovesOptional)
-local GloveTargetGroup = GloveTabBox:AddTab("Target", SolarIcon.Combat)
-local GloveCollectGroup = GloveTabBox:AddTab("Collect", SolarIcon.Misc)
-local GloveUtilityGroup = GloveTabBox:AddTab("Utility", SolarIcon.Settings)
+local GloveSpamGroup = GloveTabBox:AddTab("Spam", GloveIcon.GloveSpam)
+local GloveTargetGroup = GloveTabBox:AddTab("Target", GloveIcon.GloveTarget)
+local GloveCollectGroup = GloveTabBox:AddTab("Collect", GloveIcon.GloveCollect)
+local GloveUtilityGroup = GloveTabBox:AddTab("Utility", GloveIcon.GloveUtility)
 local Glove1Group = GloveSpamGroup
 
 Glove1Group:AddDropdown("Santa", {

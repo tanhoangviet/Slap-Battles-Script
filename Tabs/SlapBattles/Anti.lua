@@ -333,30 +333,36 @@ end
     end
 })
 
-if hookmetamethod then
-	_G.AntiToggles["Anti Spam Bypass"] = Anti2Group:AddToggle("Anti Spam Bypass", {
-	    Text = "Anti Spam Bypass (Chainsaw)",
-	    Default = false,
-	    Callback = function(Value)
-	getgenv().AntiSpamBypass = Value
-	if getgenv().RefreshSlapNamecallHook then
-		getgenv().RefreshSlapNamecallHook()
-	end
-	    end
-	})
+_G.AntiToggles["Anti Spam Bypass"] = Anti2Group:AddToggle("Anti Spam Bypass", {
+    Text = "Anti Spam Bypass (Chainsaw)",
+    Default = false,
+    Callback = function(Value)
+if Value and CheckExecutorSupport and not CheckExecutorSupport("namecall_hook", "Anti Spam Bypass") then
+	getgenv().AntiSpamBypass = false
+	return
 end
+getgenv().AntiSpamBypass = Value
+if getgenv().RefreshSlapNamecallHook then
+	getgenv().RefreshSlapNamecallHook()
+end
+    end
+})
 
 _G.AntiToggles["Anti Piano"] = Anti2Group:AddToggle("Anti Piano", {
     Text = "Anti Piano",
     Default = false,
     Callback = function(Value)
-if hookmetamethod then
+if CheckExecutorSupport and CheckExecutorSupport("namecall_hook", nil, true) then
+	if Value and not CheckExecutorSupport("namecall_hook", "Anti Piano") then
+		getgenv().AntiPiano = false
+		return
+	end
 	getgenv().AntiPiano = Value
 	if getgenv().RefreshSlapNamecallHook then
 		getgenv().RefreshSlapNamecallHook()
 	end
 end
-if not hookmetamethod then
+if not CheckExecutorSupport or not CheckExecutorSupport("namecall_hook", nil, true) then
 	local Piano = game:GetService("ReplicatedStorage"):FindFirstChild("Piano") or game:GetService("ReplicatedStorage"):FindFirstChild("_Piano_")
 	if Piano then
 		Piano.Name = Value and "_Piano_" or "Piano"

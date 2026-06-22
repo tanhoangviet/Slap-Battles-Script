@@ -1512,13 +1512,19 @@ end
    SyncToggleState = true
 })
 
-if hookmetamethod and getnamecallmethod then
 Misc1Basic:AddToggle("Method Glove", {
     Text = "Method Glove",
     Tooltip = "Method: Glovel, Charge, Golden, Psython, Stalker, Frostbite",
     Default = false, 
     Callback = function(Value) 
+if Value and CheckExecutorSupport and not CheckExecutorSupport("namecall_hook", "Method Glove") then
+	MethodGlove = false
+	return
+end
 MethodGlove = Value
+if getgenv().RefreshSlapNamecallHook then
+	getgenv().RefreshSlapNamecallHook()
+end
 while MethodGlove do
 if EquipGlove ~= CheckGlove() then
 	EquipGlove = CheckGlove()
@@ -1527,7 +1533,6 @@ task.wait()
 end
     end
 })
-end
 
 Misc1Basic:AddToggle("Show Button Roll", {
     Text = "Show Button Roll (Custom)",
@@ -3337,4 +3342,3 @@ else
 Notification("You don't have Kinetic equipped, or you have to go Arena, or player have go to arena.", _G.TimeNotify)
 end
 end)
-

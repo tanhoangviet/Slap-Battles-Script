@@ -102,12 +102,14 @@ MenuGroup:AddDivider()
 MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {Default = "RightShift", NoUI = true, Text = "Menu keybind"})
 MenuGroup:AddButton("Unload", function() Library:Unload() end)
 Info:AddLabel("Counter [ "..game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(game.Players.LocalPlayer).." ]", true)
-Info:AddLabel("Executor [ "..identifyexecutor().." ]", true)
+Info:AddLabel("Executor [ "..((ExecutorSupport and ExecutorSupport.Name) or "Unknown").." ]", true)
+Info:AddLabel("Support [ "..((ExecutorSupport and ExecutorSupport.Summary) or "Unknown").." ]", true)
 Info:AddLabel("Job Id [ "..game.JobId.." ]", true)
 Info:AddDivider()
 Info:AddButton("Copy JobId", function()
-    if setclipboard then
-        setclipboard(tostring(game.JobId))
+    local CopyText = setclipboard or toclipboard
+    if CopyText then
+        CopyText(tostring(game.JobId))
         Library:Notify("Copied Success")
     else
         Library:Notify(tostring(game.JobId), 10)
@@ -129,9 +131,10 @@ game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, _G.JobI
 end)
 
 Info:AddButton("Copy Join JobId", function()
-    if setclipboard then
-        setclipboard('game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, "'..game.JobId..'"'..", game.Players.LocalPlayer)")
-        Library:Notify("Copied Success") 
+    local CopyText = setclipboard or toclipboard
+    if CopyText then
+        CopyText('game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, "'..game.JobId..'"'..", game.Players.LocalPlayer)")
+        Library:Notify("Copied Success")
     else
         Library:Notify(tostring(game.JobId), 10)
     end

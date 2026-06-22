@@ -1,7 +1,7 @@
-Loading:SetCurrentStep(3)
+Loading:SetCurrentStep(5)
 Loading:SetMessage("Done!")
 Loading:SetDescription("Ready.")
-task.wait(0.5)
+task.wait(0.25)
 Loading:Continue()
 getgenv().LoadingScriptSlap = false
 if MobileOn then
