@@ -1517,9 +1517,12 @@ if hookmetamethod and getnamecallmethod then
 Misc1Basic:AddToggle("Method Glove", {
     Text = "Method Glove",
     Tooltip = "Method: Glovel, Charge, Golden, Psython, Stalker",
-    Default = false, 
-    Callback = function(Value) 
+    Default = false,
+    Callback = function(Value)
 MethodGlove = Value
+if getgenv().RefreshSlapNamecallHook then
+	getgenv().RefreshSlapNamecallHook()
+end
 while MethodGlove do
 if EquipGlove ~= CheckGlove() then
 	EquipGlove = CheckGlove()

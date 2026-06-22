@@ -1,4 +1,10 @@
-local Glove1Group = Tabs.Tab6:AddLeftGroupbox("Glove")
+local GloveTabGroup = Tabs.Tab6:AddLeftGroupbox("Glove Options", SolarIcon.GlovesOptional)
+local GloveTabBox = GloveTabGroup:AddTabbox({ Name = "Glove Tabs" })
+local GloveSpamGroup = GloveTabBox:AddTab("Spam", SolarIcon.GlovesOptional)
+local GloveTargetGroup = GloveTabBox:AddTab("Target", SolarIcon.Combat)
+local GloveCollectGroup = GloveTabBox:AddTab("Collect", SolarIcon.Misc)
+local GloveUtilityGroup = GloveTabBox:AddTab("Utility", SolarIcon.Settings)
+local Glove1Group = GloveSpamGroup
 
 Glove1Group:AddDropdown("Santa", {
     Text = "Santa Ability",
@@ -108,6 +114,8 @@ Toggles["Spam Slapstick"]:SetValue(false)
 end
     end
 })
+
+Glove1Group = GloveTargetGroup
 
 Glove1Group:AddInput("Players", {
     Default = "",
@@ -654,7 +662,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 end
 end)
 
-local Glove2Group = Tabs.Tab6:AddRightGroupbox("Misc Glove")
+local Glove2Group = GloveCollectGroup
 
 Glove2Group:AddButton("Spawn Orb Siphon", function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and CheckGlove() == "Siphon" then
@@ -882,6 +890,8 @@ end
     end
 })
 
+Glove2Group = GloveUtilityGroup
+
 Glove2Group:AddToggle("Auto PingPong", {
     Text = "Auto Slap Ping Pong",
     Default = false, 
@@ -901,6 +911,8 @@ task.wait()
 end
     end
 })
+
+Glove2Group = GloveTargetGroup
 
 Glove2Group:AddInput("Players", {
     Default = "",
@@ -1198,6 +1210,8 @@ end
     end
 })
 
+Glove2Group = GloveTargetGroup
+
 Glove2Group:AddInput("Players", {
     Default = "",
     Numeric = false,
@@ -1219,7 +1233,7 @@ _G.CloudBring = Value
     end
 })
 
-Misc3Group:AddButton("TP Seat Could (Yourself)", function()
+Glove2Group:AddButton("TP Seat Could (Yourself)", function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.Sit == false then
 	for i,v in pairs(game.Workspace:GetChildren()) do
 		if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
@@ -1306,6 +1320,8 @@ Toggles["Auto Bring Firework"]:SetValue(false)
 end
     end
 })
+
+Glove2Group = GloveUtilityGroup
 
 Glove2Group:AddToggle("Auto Full Kinetic", {
     Text = "Auto Full Kinetic",

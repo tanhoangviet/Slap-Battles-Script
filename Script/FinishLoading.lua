@@ -1,3 +1,8 @@
+Loading:SetCurrentStep(3)
+Loading:SetMessage("Done!")
+Loading:SetDescription("Ready.")
+task.wait(0.5)
+Loading:Continue()
 getgenv().LoadingScriptSlap = false
 if MobileOn then
 	Library:SetDPIScale(85)

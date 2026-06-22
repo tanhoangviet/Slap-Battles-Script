@@ -339,6 +339,9 @@ if hookmetamethod then
 	    Default = false,
 	    Callback = function(Value)
 	getgenv().AntiSpamBypass = Value
+	if getgenv().RefreshSlapNamecallHook then
+		getgenv().RefreshSlapNamecallHook()
+	end
 	    end
 	})
 end
@@ -347,7 +350,12 @@ _G.AntiToggles["Anti Piano"] = Anti2Group:AddToggle("Anti Piano", {
     Text = "Anti Piano",
     Default = false,
     Callback = function(Value)
-if hookmetamethod then getgenv().AntiPiano = Value end
+if hookmetamethod then
+	getgenv().AntiPiano = Value
+	if getgenv().RefreshSlapNamecallHook then
+		getgenv().RefreshSlapNamecallHook()
+	end
+end
 if not hookmetamethod then
 	local Piano = game:GetService("ReplicatedStorage"):FindFirstChild("Piano") or game:GetService("ReplicatedStorage"):FindFirstChild("_Piano_")
 	if Piano then

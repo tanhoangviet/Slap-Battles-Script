@@ -1996,7 +1996,7 @@ end
 
 local MasteryTabGroup = Tabs.Tab3:AddRightGroupbox("Mastery", SolarIcon.Mastery)
 TabBoxMastery = MasteryTabGroup:AddTabbox({ Name = "Mastery Tabs" })
-local Badge3Group = TabBoxMastery:AddTab("Mastery", SolarIcon.Mastery)
+local Badge3Group = TabBoxMastery:AddTab("Farm", SolarIcon.Mastery)
 
 Badge3Group:AddDropdown("Farm Mastery", {
     Text = "Farm Mastery",
@@ -2133,6 +2133,8 @@ function SpawnFarmMastery()
 	enterporter("Teleport1")
 	player.Character.HumanoidRootPart.CFrame = workspace.SafeBox.CFrame * CFrame.new(0,5,0)
 end
+
+Badge3Group = TabBoxMastery:AddTab("Spring-Defense", SolarIcon.Local)
 
 Badge3Group:AddDropdown("Spring Mastery", {
     Text = "Spring Mastery",
@@ -2560,6 +2562,8 @@ Toggles["Auto Eggler Mastery"]:SetValue(false)
 end
     end
 })
+
+Badge3Group = TabBoxMastery:AddTab("Thanos-Tycoon", SolarIcon.Combat)
 
 Badge3Group:AddDropdown("Thanos Mastery", {
     Text = "Thanos Mastery",
@@ -3223,6 +3227,8 @@ end
     end
 })
 
+Badge3Group = TabBoxMastery:AddTab("Phase-Wormhole", SolarIcon.Misc)
+
 Badge3Group:AddDropdown("Phase Mastery", {
     Text = "Phase Mastery",
     Values = {"200 Second Island", "Slap + Ability", "Ability + Slap (2 Sec)"},
@@ -3881,6 +3887,8 @@ end
     end
 })
 
+Badge3Group = TabBoxMastery:AddTab("Run-Brick", SolarIcon.Mastery)
+
 Badge3Group:AddDropdown("Run Mastery", {
     Text = "Run Mastery",
     Values = {"Esp Player", "Auto Kill Player"},
@@ -4440,7 +4448,7 @@ end
     end
 })
 
-local Badge4Group = TabBoxMastery:AddTab("Mastery Help", SolarIcon.Help)
+local Badge4Group = TabBoxMastery:AddTab("Help Setup", SolarIcon.Help)
 
 spawn(function()
 	while true do
@@ -4517,6 +4525,8 @@ if CloneAccHelp then
 end
     end
 })
+
+Badge4Group = TabBoxMastery:AddTab("Help A-B", SolarIcon.Help)
 
 Badge4Group:AddDropdown("Acrobat Mastery", {
     Text = "Acrobat Mastery",
@@ -4827,6 +4837,8 @@ Toggles["Auto Mastery Engineer"]:SetValue(false)
 end
     end
 })
+
+Badge4Group = TabBoxMastery:AddTab("Help V-S", SolarIcon.Combat)
 
 Badge4Group:AddDropdown("Voodoo Mastery", {
     Text = "Voodoo Mastery",
@@ -5867,6 +5879,8 @@ end
     end
 })
 
+Badge4Group = TabBoxMastery:AddTab("Help T-M", SolarIcon.Misc)
+
 Badge4Group:AddDropdown("Tycoon Mastery", {
     Text = "Tycoon Mastery",
     Values = {"Defense Tycoon", "Kill Clone (Tycoon God)"},
@@ -6727,6 +6741,8 @@ Toggles["Auto Mastery Moai"]:SetValue(false)
 end
     end
 })
+
+Badge4Group = TabBoxMastery:AddTab("Help Quick", SolarIcon.Mastery)
 
 Badge4Group:AddDivider()
 

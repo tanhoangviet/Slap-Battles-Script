@@ -28,9 +28,3 @@ wminfo.setText(("FPS: %s | %s MS | %02d Hour / %02d Minute / %02d Second"):forma
     hours, minutes, seconds
 ))
 end))
-
-Loading:SetCurrentStep(3)
-Loading:SetMessage("Done!")
-Loading:SetDescription("Really!")
-task.wait(1)
-Loading:Continue()

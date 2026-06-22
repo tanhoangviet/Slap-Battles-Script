@@ -65,10 +65,10 @@ Tabs/Places/ChickenBoss.lua
 Tabs/Places/MapCultivateGlove.lua
 Tabs/Places/MapOpera.lua
 Tabs/Places/MapDoors.lua
-Script/FinishLoading.lua
 Tabs/UISettings.lua
 Script/GloveDrop.lua
 Utility/BackpackV2.lua
 Script/ClickFreezeBV.lua
 Script/ExecuteOnTeleport.lua
 Utility/GloveHits.lua
+Script/FinishLoading.lua

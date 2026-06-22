@@ -34,9 +34,12 @@ Loading:SetMessage("Initializing...")
 Loading:SetDescription("Loading game data...")
 local LoadingData = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("LoadingIndicator", true)
 if LoadingData and LoadingData.Visible then
-repeat task.wait() until LoadingData and LoadingData.Visible == false
+	local Timeout = os.clock() + 12
+	repeat
+		task.wait(0.1)
+	until not LoadingData.Parent or not LoadingData.Visible or os.clock() > Timeout
 end
 Loading:SetCurrentStep(1)
 Loading:SetDescription("Loading configuration...")
-task.wait(3)
+task.wait(0.5)
 _G.ConnectFun = {}

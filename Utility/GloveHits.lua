@@ -86,7 +86,8 @@ gloveHits = {
 	["Leafblower"] = safe("LeafblowerHit"),
 	------------------------------------------------
 	["Poltergeist"] = safe("UTGHit"),
-	["Clock"] = safe("UTGHit"),
+	["Clock"] = safe("GeneralHit"),
+	["Đồng hồ"] = safe("GeneralHit"),
 	["Untitled Tag Glove"] = safe("UTGHit"),
 	------------------------------------------------
 	["Kinetic"] = safe("HtStun"),

@@ -449,6 +449,20 @@ local function InstallNamecallHook()
 	getgenv().HookDisabled = false
 end
 
+local function RefreshNamecallHook()
+	local ShouldEnableHook = MethodGlove == true
+		or getgenv().AntiSpamBypass == true
+		or getgenv().AntiPiano == true
+		or getgenv().AntiConfuse == true
+		or getgenv().AntiNightmare == true
+
+	if ShouldEnableHook then
+		InstallNamecallHook()
+	elseif getgenv().HookNamecallInstalled then
+		getgenv().HookDisabled = true
+	end
+end
+
 if hookmetamethod and getnamecallmethod then
 	if not loadingGetOut then
 		loadingGetOut = true
@@ -459,7 +473,9 @@ if hookmetamethod and getnamecallmethod then
 	if EquipGlove == nil then EquipGlove = "Default" end
 	if ReplicaCount == nil then ReplicaCount = 0 end
 
-	InstallNamecallHook()
+	getgenv().InstallSlapNamecallHook = InstallNamecallHook
+	getgenv().RefreshSlapNamecallHook = RefreshNamecallHook
+	RefreshNamecallHook()
 end
 
 local function combinations(list, n)
@@ -515,7 +531,8 @@ function findGroup(maxDist, groupSize)
 end
 
 function equipglove(name)
-	if CheckGlove():lower() ~= name:lower() then
+	local CurrentGlove = CheckGlove()
+	if not CurrentGlove or CurrentGlove:lower() ~= name:lower() then
 		EquipGloveRemote(name)
 		local click = workspace.Lobby:FindFirstChild(name)
 		if click and fireclickdetector then
@@ -524,25 +541,38 @@ function equipglove(name)
 	end
 end
 
-function slapglove(obj)
-	local current = CheckGlove()
-	local arg
-	if gloveHits[current] then
-		gloveHits[current]:FireServer(obj)
-	else
-		if current then
-			if current:lower() == "stalker" then
-				arg = {obj, false, 45}
-			elseif current:lower() == "glovel" then
-				arg = {obj, true}
-			elseif current:lower() == "mace" then
-				arg = {obj, 100}
-			else
-				arg = {obj}
-			end
-			gloveHits["All"]:FireServer(unpack(arg))
+local function FireSlapRemote(Remote, ...)
+	if not Remote then return false end
+	local Success = pcall(function(...)
+		Remote:FireServer(...)
+	end, ...)
+	return Success
+end
+
+local function GetSlapArgs(current, obj)
+	if current then
+		local glove = current:lower()
+		if glove == "stalker" then
+			return { obj, false, 45 }
+		elseif glove == "glovel" then
+			return { obj, true }
+		elseif glove == "mace" then
+			return { obj, 100 }
 		end
 	end
+	return { obj }
+end
+
+function slapglove(obj)
+	local current = CheckGlove()
+	if not obj or not current or not gloveHits then return false end
+
+	local args = GetSlapArgs(current, obj)
+	local CurrentRemote = gloveHits[current]
+	if CurrentRemote and FireSlapRemote(CurrentRemote, unpack(args)) then
+		return true
+	end
+	return FireSlapRemote(gloveHits["All"], unpack(args))
 end
 
 ---SafeSpotSpace---
